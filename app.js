@@ -16,7 +16,7 @@ mongoose.connection.on('error', (error) => {
     process.exit(1);
 });
 mongoose.connection.on('connected', function () {
-    console.log('connected to mongo');
+    console.log('connected to MongoDB');
 });
 
 // create an instance of an express app
