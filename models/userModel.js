@@ -15,7 +15,11 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    highScore: {
+    country: {
+        type: String,
+        required: true
+    },
+    money: {
         type: Number,
         default: 0
     }

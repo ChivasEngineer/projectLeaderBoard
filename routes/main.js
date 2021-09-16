@@ -10,14 +10,14 @@ router.get('/status', (req, res, next) => {
 });
 
 router.post('/signup', passport.authenticate('signup', { session: false }), async (req, res, next) => {
-    res.status(200).json({ message: 'signup successful' });
+    res.status(200).json({ message: 'Signup Successful' });
 });
 
 router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
         try {
             if (err || !user) {
-                const error = new Error('An Error occured');
+                const error = new Error('An Error Occured');
                 return next(error);
             }
             req.login(user, { session: false }, async (error) => {
@@ -63,7 +63,7 @@ router.post('/token', (req, res) => {
         tokenList[refreshToken].token = token;
         res.status(200).json({ token });
     } else {
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(401).json({ message: 'Unauthorized !' });
     }
 });
 
@@ -74,6 +74,6 @@ router.post('/logout', (req, res) => {
         res.clearCookie('refreshJwt');
         res.clearCookie('jwt');
     }
-    res.status(200).json({ message: 'logged out' });
+    res.status(200).json({ message: 'Logged Out' });
 });
 module.exports = router;
