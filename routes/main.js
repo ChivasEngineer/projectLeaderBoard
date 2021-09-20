@@ -43,7 +43,7 @@ router.post('/login', async (req, res, next) => {
                 };
 
                 //Send back the token to the user
-                return res.status(200).json({ token, refreshToken });
+                return res.status(200).json({ token, refreshToken, message: 'Logged In' });
             });
         } catch (error) {
             return next(error);

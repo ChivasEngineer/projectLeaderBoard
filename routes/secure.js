@@ -11,7 +11,12 @@ router.post('/submit-money', asyncMiddleware(async (req, res, next) => {
 }));
 
 router.get('/totalMoney', asyncMiddleware(async (req, res, next) => {
-    const users = await UserModel.find({}, 'name money country -_id').sort({ money: -1 }).limit(10);
+    const users = await UserModel.find({}, 'name money country -_id').sort({ money: -1 }).limit(100);
+    res.status(200).json(users);
+}));
+
+router.get('/getMoney', asyncMiddleware(async (req, res, next) => {
+    const users = await UserModel.find({}, 'money -_id').sort({ money: -1 }).limit(100);
     res.status(200).json(users);
 }));
 module.exports = router;

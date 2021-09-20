@@ -9,6 +9,11 @@ const passport = require('passport');
 const routes = require('./routes/main');
 const secureRoutes = require('./routes/secure');
 
+const redis = require('redis');
+const redisClient = redis.createClient();//creates a new client
+
+const cors = require('cors');
+
 // setup mongo connection
 const uri = process.env.MONGO_CONNECTION_URL;
 mongoose.connect(uri);
@@ -20,6 +25,15 @@ mongoose.connection.on('connected', function () {
     console.log('connected to MongoDB');
 });
 
+//redis client
+redisClient.on('connect', function () {
+    console.log('connected to redis');
+});
+
+redisClient.on('error', function (err) {
+    console.log("Something was wrong on the client" + err);
+});
+
 // create an instance of an express app
 const app = express();
 
@@ -27,6 +41,17 @@ const app = express();
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.json()); // parse application/json
 app.use(cookieParser());
+
+//cors enable for client side React project
+app.use(cors());
+
+app.get('/localhost/:5000', function (req, res, next) {
+    res.json({ msg: 'This is CORS-enabled for all origins!' })
+})
+
+app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+})
 
 // require passport auth
 require('./auth/auth');
